@@ -1,0 +1,574 @@
+/* Retro Arcade & Cyberpunk Styling for PONG: IMPOSSIBLE */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+  --bg-color: #0a0a14;
+  --panel-bg: rgba(15, 15, 28, 0.9);
+  --border-neon-cyan: #00f0ff;
+  --border-neon-pink: #ff0055;
+  --border-neon-yellow: #ffee00;
+  --text-main: #ffffff;
+  --text-muted: #a0a0c0;
+  --player-color: #00f0ff;
+  --bot-color: #ff0055;
+  --accent-color: #ffee00;
+  --font-arcade: 'Press Start 2P', monospace, sans-serif;
+  --font-ui: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CRT Scanline Effect Overlay */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 99;
+  opacity: 0.5;
+}
+
+/* Vignette Shadow */
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+  z-index: 98;
+}
+
+/* App Container */
+#app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1280px;
+  max-height: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Screen Panel Base */
+.screen-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.screen-panel.hidden {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* High Score Badge on Menu */
+.high-score-badge {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-family: var(--font-arcade);
+  font-size: 11px;
+  color: var(--accent-color);
+  background: rgba(255, 238, 0, 0.1);
+  border: 1px solid var(--accent-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255, 238, 0, 0.3);
+}
+
+/* Main Titles & Typography */
+.main-title {
+  font-family: var(--font-arcade);
+  font-size: 32px;
+  line-height: 1.3;
+  color: #fff;
+  text-shadow: 3px 3px 0px var(--bot-color), -3px -3px 0px var(--player-color);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.neon-pink {
+  color: var(--bot-color);
+  text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 25px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-arcade);
+  font-size: 20px;
+  color: var(--player-color);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Card Panel Base */
+.card-panel {
+  background: var(--panel-bg);
+  border: 2px solid var(--border-neon-cyan);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.08);
+  border-radius: 16px;
+  padding: 30px 40px;
+  max-width: 560px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(12px);
+}
+
+/* Menu Content & Buttons */
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+
+/* Buttons Styling */
+.btn-primary {
+  font-family: var(--font-arcade);
+  font-size: 13px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, var(--player-color), #0077ff);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.4), 0 4px 0 #0044aa;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.7), 0 6px 0 #0044aa;
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4), 0 2px 0 #0044aa;
+}
+
+.btn-secondary {
+  font-family: var(--font-arcade);
+  font-size: 11px;
+  padding: 13px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--border-neon-cyan);
+  box-shadow: 0 0 12px var(--border-neon-cyan);
+  transform: translateY(-2px);
+}
+
+/* HOW TO PLAY Layout */
+.guide-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.guide-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--player-color);
+  padding: 10px 14px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.guide-item.warning {
+  border-left-color: var(--bot-color);
+  background: rgba(255, 0, 85, 0.08);
+}
+
+.guide-label {
+  font-family: var(--font-arcade);
+  font-size: 10px;
+  color: var(--accent-color);
+}
+
+.guide-desc {
+  font-size: 13px;
+  color: #d0d0e0;
+}
+
+.controls-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.key-badge {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--player-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: var(--font-arcade);
+  font-size: 10px;
+  color: var(--player-color);
+}
+
+/* CHEAT DATABASE Layout */
+.db-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 92%;
+  margin-bottom: 12px;
+}
+
+.db-progress {
+  font-family: var(--font-arcade);
+  font-size: 11px;
+  color: var(--accent-color);
+}
+
+.db-grid {
+  width: 92%;
+  max-height: 480px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  padding-right: 6px;
+}
+
+/* Scrollbar for DB Grid */
+.db-grid::-webkit-scrollbar {
+  width: 6px;
+}
+.db-grid::-webkit-scrollbar-thumb {
+  background: var(--player-color);
+  border-radius: 4px;
+}
+
+.cheat-card {
+  background: rgba(15, 15, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.cheat-card.discovered {
+  border-color: var(--bot-color);
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+  background: rgba(255, 0, 85, 0.05);
+}
+
+.cheat-card.locked {
+  opacity: 0.6;
+}
+
+.cheat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cheat-card-title {
+  font-family: var(--font-arcade);
+  font-size: 10px;
+  color: var(--text-main);
+}
+
+.cheat-card.discovered .cheat-card-title {
+  color: var(--bot-color);
+}
+
+.cheat-badge {
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.cheat-badge.discovered {
+  background: var(--bot-color);
+  color: #fff;
+}
+
+.cheat-badge.locked {
+  background: #333;
+  color: #888;
+}
+
+.cheat-card-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* HUD & Gameplay Layout */
+#hud {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 18px;
+  margin-bottom: 6px;
+  background: var(--panel-bg);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.hud-title {
+  font-family: var(--font-arcade);
+  font-size: 13px;
+  background: linear-gradient(90deg, var(--player-color), var(--bot-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.scoreboard {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-label {
+  font-family: var(--font-arcade);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.score-value {
+  font-family: var(--font-arcade);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#player-score-box .score-value { color: var(--player-color); text-shadow: 0 0 10px var(--player-color); }
+#bot-score-box .score-value { color: var(--bot-color); text-shadow: 0 0 10px var(--bot-color); }
+
+.score-vs {
+  font-family: var(--font-arcade);
+  font-size: 12px;
+  color: #555;
+}
+
+.hud-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-main);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-arcade);
+  font-size: 9px;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--border-neon-cyan);
+}
+
+/* Canvas Container */
+#canvas-wrapper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  background-color: #050508;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Overlay Base */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 8, 16, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Cheat Notification Banner & Toast */
+#cheat-banner {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.7);
+  background: rgba(15, 12, 25, 0.96);
+  border: 2px solid var(--bot-color);
+  box-shadow: 0 0 25px rgba(255, 0, 85, 0.85), inset 0 0 15px rgba(255, 0, 85, 0.25);
+  padding: 8px 22px;
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0;
+  text-align: center;
+  z-index: 30;
+}
+
+#cheat-banner.active {
+  animation: cheatBannerPop 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cheatBannerPop {
+  0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
+  15% { transform: translateX(-50%) scale(1.12); opacity: 1; }
+  30% { transform: translateX(-50%) scale(1.0); opacity: 1; }
+  80% { transform: translateX(-50%) scale(1.0); opacity: 1; }
+  100% { transform: translateX(-50%) scale(0.9); opacity: 0; }
+}
+
+.cheat-banner-sub {
+  font-family: var(--font-arcade);
+  font-size: 8px;
+  color: var(--accent-color);
+  letter-spacing: 1.5px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.cheat-banner-title {
+  font-family: var(--font-arcade);
+  font-size: 13px;
+  color: #ffffff;
+  text-shadow: 0 0 12px var(--bot-color);
+  letter-spacing: 1px;
+}
+
+#cheat-toast {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 240, 255, 0.92);
+  color: #000000;
+  font-family: var(--font-arcade);
+  font-size: 10px;
+  padding: 8px 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 21;
+}
+
+#cheat-toast.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+/* Quote Box */
+.quote-box {
+  background: rgba(0, 0, 0, 0.4);
+  border-left: 3px solid var(--bot-color);
+  padding: 10px 14px;
+  margin: 12px 0 20px 0;
+  border-radius: 4px;
+  font-style: italic;
+  font-size: 13px;
+  color: #e0e0ff;
+  text-align: center;
+}

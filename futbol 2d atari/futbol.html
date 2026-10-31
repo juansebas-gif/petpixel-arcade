@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol 2D Atari — 10 Personajes con Habilidades Especiales</title>
+    <link rel="stylesheet" href="css/futbol.css">
+</head>
+<body>
+    <!-- Barra de retorno opcional si se abre directamente fuera del iframe -->
+    <div id="standalone-return-bar" style="display: none; justify-content: space-between; align-items: center; background: #0b0f19; padding: 8px 16px; border-bottom: 2px solid #7c3aed; color: #fff; font-family: sans-serif; font-size: 14px; z-index: 99999;">
+        <span>🎮 <strong>PetPixel Arcade</strong> &bull; Fútbol 2D Atari</span>
+        <a href="../arcade.html" style="color: #38bdf8; text-decoration: none; font-weight: bold; background: #1e293b; padding: 5px 12px; border-radius: 4px; border: 1px solid #38bdf8;">← Volver al Portafolio</a>
+    </div>
+
+    <main class="arcade-cabinet">
+        <!-- Encabezado y Marcador Superior con HUD de Personajes -->
+        <header class="hud-bar">
+            <!-- Panel Jugador 1 (Azul) -->
+            <div class="player-hud blue-hud">
+                <div class="character-badge" id="hud-j1-badge">
+                    <span class="char-icon" id="hud-j1-icon">⚡</span>
+                </div>
+                <div class="hud-details">
+                    <div class="hud-meta">
+                        <span class="hud-player-tag">JUGADOR 1 (AZUL)</span>
+                        <strong class="hud-char-name" id="hud-j1-name">VELOCISTA</strong>
+                    </div>
+                    <div class="hud-bars">
+                        <!-- Barra de Turbo -->
+                        <div class="meter-wrapper" title="Turbo (Shift Izq)">
+                            <span class="meter-label">TURBO</span>
+                            <div class="meter-track">
+                                <div id="hud-j1-turbo" class="meter-fill turbo-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- Barra de Habilidad -->
+                        <div class="meter-wrapper" title="Habilidad Especial (Tecla E)">
+                            <span class="meter-label">HABILIDAD [E]</span>
+                            <div class="meter-track">
+                                <div id="hud-j1-skill-fill" class="meter-fill skill-fill" style="width: 100%;"></div>
+                            </div>
+                            <span id="hud-j1-skill-text" class="meter-status">LISTA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marcador Central -->
+            <div class="scoreboard-container">
+                <div class="scoreboard" aria-label="Marcador de la partida">
+                    <span id="score-blue" class="score-digits score-blue">0</span>
+                    <div class="match-info">
+                        <span id="mode-indicator" class="mode-tag">1P VS IA</span>
+                        <span class="vs-text">VS</span>
+                    </div>
+                    <span id="score-orange" class="score-digits score-orange">0</span>
+                </div>
+                <div class="hud-actions">
+                    <button id="btn-pause" type="button" class="btn-arcade btn-sm" title="Atajo: Barra espaciadora">
+                        PAUSA (ESPACIO)
+                    </button>
+                    <button id="btn-restart" type="button" class="btn-arcade btn-sm btn-warning">
+                        REINICIAR
+                    </button>
+                    <button id="btn-finish-match" type="button" class="btn-arcade btn-sm" style="background: #e11d48; color: #fff; border-color: #f43f5e;" title="Terminar y guardar el partido con el marcador actual">
+                        FINALIZAR
+                    </button>
+                    <button id="btn-change-chars" type="button" class="btn-arcade btn-sm btn-secondary">
+                        ELEGIR PERSONAJES
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel Jugador 2 / IA (Naranja) -->
+            <div class="player-hud orange-hud">
+                <div class="hud-details hud-details-right">
+                    <div class="hud-meta">
+                        <span class="hud-player-tag" id="hud-j2-tag">RIVAL (IA)</span>
+                        <strong class="hud-char-name" id="hud-j2-name">CONSTRUCTOR</strong>
+                    </div>
+                    <div class="hud-bars">
+                        <!-- Barra de Turbo -->
+                        <div class="meter-wrapper" title="Turbo (Shift Der en 2P)">
+                            <span class="meter-label">TURBO</span>
+                            <div class="meter-track">
+                                <div id="hud-j2-turbo" class="meter-fill turbo-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <!-- Barra de Habilidad -->
+                        <div class="meter-wrapper" title="Habilidad Especial (Tecla Enter en 2P)">
+                            <span class="meter-label">HABILIDAD <span id="hud-j2-key">[IA]</span></span>
+                            <div class="meter-track">
+                                <div id="hud-j2-skill-fill" class="meter-fill skill-fill orange-fill" style="width: 100%;"></div>
+                            </div>
+                            <span id="hud-j2-skill-text" class="meter-status">LISTA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="character-badge orange-badge" id="hud-j2-badge">
+                    <span class="char-icon" id="hud-j2-icon">🧱</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenedor adaptable de la cancha en Canvas -->
+        <section class="stage-wrapper" id="stage-wrapper">
+            <div class="canvas-aspect-box">
+                <canvas id="game-canvas" width="960" height="560" aria-label="Cancha de Fútbol 2D"></canvas>
+
+                <!-- PANTALLA 1: Menú Inicial de Modo de Juego -->
+                <div id="mode-overlay" class="overlay active" role="dialog" aria-modal="true">
+                    <div class="overlay-card mode-card">
+                        <p class="retro-subtitle">EVALUACIÓN PARCIAL 1 — INGENIERÍA WEB</p>
+                        <h2 class="retro-title">FÚTBOL 2D ATARI</h2>
+                        <p class="overlay-desc">
+                            10 Personajes con Habilidades Únicas &bull; Fricción Física &bull; Modo 1P vs IA o 2P Local
+                        </p>
+
+                        <div class="mode-buttons">
+                            <button id="btn-mode-1p" type="button" class="btn-arcade btn-large btn-primary">
+                                1 JUGADOR CONTRA IA
+                                <small>Elige tu personaje y compite contra la IA táctica</small>
+                            </button>
+                            <button id="btn-mode-2p" type="button" class="btn-arcade btn-large btn-orange">
+                                2 JUGADORES LOCALES
+                                <small>Ambos eligen su héroe y juegan en el mismo teclado</small>
+                            </button>
+                        </div>
+
+                        <div class="controls-summary-box">
+                            <div class="cs-col">
+                                <strong>J1 (Azul):</strong> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> &bull; Turbo: <kbd>Shift Izq</kbd> &bull; Especial: <kbd>E</kbd>
+                            </div>
+                            <div class="cs-col">
+                                <strong>J2 (Naranja):</strong> <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> &bull; Turbo: <kbd>Shift Der</kbd> &bull; Especial: <kbd>Enter</kbd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA 2: Selector de Personajes (Los 10 Héroes) -->
+                <div id="char-overlay" class="overlay" role="dialog" aria-modal="true">
+                    <div class="overlay-card char-select-card">
+                        <div class="char-select-header">
+                            <div>
+                                <span class="retro-subtitle">FASE DE SELECCIÓN</span>
+                                <h2 class="retro-title-sm" id="char-selection-title">SELECCIONA EL PERSONAJE DE JUGADOR 1</h2>
+                            </div>
+                            <div class="char-turn-badge" id="char-turn-badge">
+                                TURNO: JUGADOR 1 (AZUL)
+                            </div>
+                        </div>
+
+                        <!-- Grilla de los 10 Personajes -->
+                        <div class="char-grid" id="char-grid">
+                            <!-- Inyectado dinámicamente por JavaScript -->
+                        </div>
+
+                        <!-- Panel de Selección Actual y Botón de Inicio -->
+                        <div class="char-selection-footer">
+                            <div class="selected-summary">
+                                <div class="summary-slot slot-blue" id="slot-blue-info">
+                                    <span class="slot-tag">JUGADOR 1 (AZUL)</span>
+                                    <strong id="slot-blue-name">Velocista</strong>
+                                    <small id="slot-blue-skill">Sandevistan (Recarga: 8s)</small>
+                                </div>
+                                <div class="summary-vs">VS</div>
+                                <div class="summary-slot slot-orange" id="slot-orange-info">
+                                    <span class="slot-tag" id="slot-orange-tag">RIVAL (IA)</span>
+                                    <strong id="slot-orange-name">Constructor</strong>
+                                    <small id="slot-orange-skill">Barrera (Recarga: 10s)</small>
+                                </div>
+                            </div>
+                            <div class="footer-actions">
+                                <button id="btn-back-mode" type="button" class="btn-arcade btn-secondary">
+                                    VOLVER A MODOS
+                                </button>
+                                <button id="btn-start-match" type="button" class="btn-arcade btn-success btn-bold">
+                                    ¡INICIAR PARTIDO!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PANTALLA 3: Modal de Fin de Partido (Victoria / Derrota / Estadísticas) -->
+                <div id="match-over-overlay" class="overlay" role="dialog" aria-modal="true">
+                    <div class="overlay-card match-over-card" style="text-align: center; max-width: 500px;">
+                        <span class="retro-subtitle" id="mo-subtitle">PARTIDO FINALIZADO</span>
+                        <h2 class="retro-title-sm" id="mo-title" style="color: #ffd13b; margin: 0.6rem 0;">¡VICTORIA AZUL!</h2>
+                        <div class="mo-scoreboard" style="font-size: 2.2rem; font-family: monospace; font-weight: bold; margin: 0.8rem 0; color: #fff;">
+                            <span id="mo-score-blue" style="color: #38bdf8;">0</span>
+                            <span style="color: #8d98ab; margin: 0 10px;">-</span>
+                            <span id="mo-score-orange" style="color: #fb923c;">0</span>
+                        </div>
+                        <div class="mo-details-box" style="background: rgba(15, 23, 42, 0.7); border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-bottom: 1.5rem; font-size: 0.95rem; text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div><strong>Modo:</strong> <span id="mo-mode">1P vs IA</span></div>
+                            <div><strong>Duración:</strong> <span id="mo-duration">00:00</span></div>
+                            <div><strong>J1:</strong> <span id="mo-p1">Velocista</span></div>
+                            <div><strong>Rival:</strong> <span id="mo-p2">Constructor</span></div>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                            <button id="btn-mo-rematch" type="button" class="btn-arcade btn-primary">
+                                ¡REVANCHA!
+                            </button>
+                            <button id="btn-mo-change" type="button" class="btn-arcade btn-secondary">
+                                ELEGIR PERSONAJES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pie de página con guía de controles permanente -->
+        <footer class="instructions-bar">
+            <div class="instruction-item">
+                <span class="dot dot-blue"></span>
+                <strong>J1 Azul:</strong> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> | Turbo: <kbd>Shift Izq</kbd> | Especial: <kbd>E</kbd>
+            </div>
+            <div class="instruction-item">
+                <span class="dot dot-orange"></span>
+                <strong>J2 Naranja:</strong> <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> | Turbo: <kbd>Shift Der</kbd> | Especial: <kbd>Enter</kbd>
+            </div>
+            <div class="instruction-item">
+                <strong>Pausa:</strong> <kbd>Espacio</kbd>
+            </div>
+            <div class="instruction-item">
+                <strong>Habilidad:</strong> Usa <kbd>E</kbd> / <kbd>Enter</kbd> cuando el indicador esté al 100%
+            </div>
+        </footer>
+    </main>
+
+    <script src="../storage.js"></script>
+    <script src="js/futbol.js"></script>
+    <script>
+        if (window.self === window.top) {
+            const bar = document.getElementById("standalone-return-bar");
+            if (bar) bar.style.display = "flex";
+        }
+    </script>
+</body>
+</html>

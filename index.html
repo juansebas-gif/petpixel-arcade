@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PetPixel - Indie Game Studio. Estudio independiente dedicado al diseño y desarrollo de videojuegos y experiencias interactivas por Juan Sebastian Peñaranda Acosta.">
+    <meta name="author" content="Juan Sebastian Peñaranda Acosta">
+    <title>PetPixel | Indie Game Studio - Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="author-name"><a href="index.html" class="brand-link">PetPixel</a></h1>
+            <p class="author-tagline">Indie Game Studio | "Creamos mundos. Diseñamos aventuras."</p>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link active" aria-current="page">Inicio</a></li>
+                <li><a href="sobre.html" class="nav-link">Sobre PetPixel</a></li>
+                <li><a href="areas.html" class="nav-link">Áreas de Trabajo</a></li>
+                <li><a href="proceso.html" class="nav-link">Proceso Creativo</a></li>
+                <li><a href="audio.html" class="nav-link">Audio Multimedia</a></li>
+                <li><a href="creador.html" class="nav-link">Sobre el Creador</a></li>
+                <li><a href="arcade.html" class="nav-link">Arcade</a></li>
+                <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="layout-container">
+        <main class="main-content">
+
+            <section id="inicio" class="content-section card-section hero-section">
+                <h2 class="section-title">Inicio</h2>
+                <p class="hero-subtitle">PetPixel — Indie Game Studio</p>
+                <blockquote class="hero-tagline">
+                    <p>"Creamos mundos. Diseñamos aventuras."</p>
+                </blockquote>
+                <p>Bienvenido/a a PetPixel, un estudio independiente enfocado en la conceptualización y creación de videojuegos y experiencias interactivas. Fusión entre la curiosidad y la pasión por el diseño digital, exploramos la intersección entre el arte visual, las mecánicas lúdicas y la tecnología.</p>
+                <div class="hero-actions">
+                    <a href="arcade.html" class="btn btn-primary">🎮 Jugar en Arcade</a>
+                    <a href="sobre.html" class="btn btn-secondary">Conocer Más</a>
+                    <a href="audio.html" class="btn btn-accent">Ver servicios</a>
+                    <a href="contacto.html" class="btn btn-secondary">Contactar</a>
+                </div>
+            </section>
+
+            <!-- Sección Arcade Destacada -->
+            <section id="arcade-destacado" class="content-section card-section" style="border-top: 4px solid var(--color-secondary);">
+                <h2 class="section-title">Zona Arcade PetPixel</h2>
+                <p class="section-intro">Descubre y juega directamente en el navegador a nuestros dos videojuegos independientes desarrollados con HTML5 Canvas, físicas 2D y JavaScript:</p>
+                
+                <div class="arcade-grid">
+                    <!-- Tarjeta Rápida Fútbol -->
+                    <article class="arcade-game-card card-futbol">
+                        <div class="arcade-preview-wrap">
+                            <img src="assets/imagenes/preview-futbol.svg" alt="Fútbol 2D Atari" class="arcade-preview-img" loading="lazy">
+                        </div>
+                        <div class="arcade-card-content">
+                            <div class="arcade-tags">
+                                <span class="arcade-tag tag-cyan">1P vs IA / 2P</span>
+                                <span class="arcade-tag tag-gold">10 Héroes</span>
+                            </div>
+                            <h3 class="arcade-title">Fútbol 2D Atari</h3>
+                            <p class="arcade-desc">Partido arcade retro con 10 personajes únicos, turbo, dilatación temporal y físicas continuas.</p>
+                            <div class="arcade-card-actions">
+                                <a href="juegos/futbol.html" class="btn btn-primary">▶ Jugar Fútbol 2D</a>
+                                <a href="arcade.html" class="btn btn-secondary">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tarjeta Rápida Pong -->
+                    <article class="arcade-game-card card-pong">
+                        <div class="arcade-preview-wrap">
+                            <img src="assets/imagenes/preview-pong.svg" alt="Pong: Impossible" class="arcade-preview-img" loading="lazy">
+                        </div>
+                        <div class="arcade-card-content">
+                            <div class="arcade-tags">
+                                <span class="arcade-tag tag-pink">IA Tramposa</span>
+                                <span class="arcade-tag tag-gold">30 Trampas</span>
+                            </div>
+                            <h3 class="arcade-title">Pong: Impossible</h3>
+                            <p class="arcade-desc">El clásico Pong llevado al absurdo: enfréntate a una IA que rompe todas las reglas con 30 trampas.</p>
+                            <div class="arcade-card-actions">
+                                <a href="juegos/pong.html" class="btn btn-accent">▶ Jugar Pong</a>
+                                <a href="arcade.html" class="btn btn-secondary">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <aside class="sidebar-aside card-section">
+                <h2 class="aside-title">Filosofía Indie</h2>
+                <blockquote class="quote-box">
+                    <p>"En PetPixel creemos que la pasión por la tecnología y la imaginación artística son los ingredientes fundamentales para crear juegos memorables."</p>
+                </blockquote>
+            </aside>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>PetPixel — Indie Game Studio</p>
+        <p>&copy; 2026 Juan Sebastian Peñaranda Acosta. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+
+</html>

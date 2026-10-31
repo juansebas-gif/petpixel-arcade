@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol 2D Atari — Ingeniería Web</title>
+    <link rel="stylesheet" href="css/futbol.css">
+</head>
+<body>
+    <main class="arcade-cabinet">
+        <!-- Encabezado y Marcador Superior -->
+        <header class="hud-bar">
+            <div class="brand">
+                <span class="badge-atari">ATARI 2600</span>
+                <h1>FÚTBOL 2D ARCADE</h1>
+            </div>
+
+            <div class="scoreboard" aria-label="Marcador de la partida">
+                <div class="team-score team-blue">
+                    <span class="team-name">AZUL (J1)</span>
+                    <span id="score-blue" class="score-digits">0</span>
+                </div>
+                <div class="match-status">
+                    <span id="mode-indicator" class="mode-tag">1P VS IA</span>
+                    <span class="vs-divider">VS</span>
+                </div>
+                <div class="team-score team-orange">
+                    <span id="score-orange" class="score-digits">0</span>
+                    <span id="orange-label" class="team-name">NARANJA (IA)</span>
+                </div>
+            </div>
+
+            <div class="hud-controls">
+                <button id="btn-pause" type="button" class="btn-arcade" title="Atajo: Barra espaciadora">
+                    PAUSAR (ESPACIO)
+                </button>
+                <button id="btn-restart" type="button" class="btn-arcade btn-warning">
+                    REINICIAR
+                </button>
+                <button id="btn-menu" type="button" class="btn-arcade btn-secondary">
+                    MODO DE JUEGO
+                </button>
+            </div>
+        </header>
+
+        <!-- Contenedor adaptable de la cancha en Canvas -->
+        <section class="stage-wrapper" id="stage-wrapper">
+            <div class="canvas-aspect-box">
+                <canvas id="game-canvas" width="960" height="560" aria-label="Cancha de Fútbol 2D"></canvas>
+
+                <!-- Pantalla de Inicio / Selección de Modo -->
+                <div id="menu-overlay" class="overlay active" role="dialog" aria-modal="true">
+                    <div class="overlay-card">
+                        <p class="retro-subtitle">EVALUACIÓN PARCIAL 1 — INGENIERÍA WEB</p>
+                        <h2 class="retro-title">TELE-SOCCER 2D</h2>
+                        <p class="overlay-desc">
+                            Elige el modo de partida. Anota haciendo que el balón cruce por completo la línea de meta rival.
+                        </p>
+
+                        <div class="mode-buttons">
+                            <button id="btn-mode-1p" type="button" class="btn-arcade btn-large btn-primary">
+                                1 JUGADOR CONTRA IA
+                                <small>Azul (W/A/S/D) vs Computadora Naranja</small>
+                            </button>
+                            <button id="btn-mode-2p" type="button" class="btn-arcade btn-large btn-orange">
+                                2 JUGADORES LOCALES
+                                <small>Azul (W/A/S/D) vs Naranja (Flechas)</small>
+                            </button>
+                        </div>
+
+                        <div class="controls-grid">
+                            <div class="control-box blue-box">
+                                <h3>EQUIPO AZUL (IZQUIERDA)</h3>
+                                <p><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> Mover jugador y arquero</p>
+                            </div>
+                            <div class="control-box orange-box">
+                                <h3>EQUIPO NARANJA (DERECHA)</h3>
+                                <p><kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> Mover (en modo 2 jugadores)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pie con instrucciones permanentes y recordatorio de teclas -->
+        <footer class="instructions-bar">
+            <div class="instruction-item">
+                <span class="dot dot-blue"></span>
+                <strong>Jugador 1 (Azul):</strong> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+            </div>
+            <div class="instruction-item">
+                <span class="dot dot-orange"></span>
+                <strong>Jugador 2 (Naranja):</strong> <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> <em>(o controlado por IA)</em>
+            </div>
+            <div class="instruction-item">
+                <strong>Pausa:</strong> <kbd>Espacio</kbd> o botón superior
+            </div>
+            <div class="instruction-item">
+                <strong>Física:</strong> Golpea el balón en movimiento para transferir mayor potencia
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/futbol.js"></script>
+</body>
+</html>
+

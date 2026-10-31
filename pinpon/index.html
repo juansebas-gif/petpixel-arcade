@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PONG: IMPOSSIBLE - El Bot Hará Trampa</title>
+  <meta name="description" content="Un videojuego web de Pong retro arcade en español donde el Bot es un tramposo descarado con 30 trampas absurdas.">
+  <link rel="stylesheet" href="visual.css">
+</head>
+<body>
+
+  <!-- Barra de retorno opcional si se abre directamente fuera del iframe -->
+  <div id="standalone-return-bar" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; justify-content: space-between; align-items: center; background: #0a0a14; padding: 8px 20px; border-bottom: 2px solid #ff0055; color: #fff; font-family: 'Outfit', sans-serif; font-size: 14px; z-index: 999999; box-sizing: border-box;">
+    <span>🎮 <strong>PetPixel Arcade</strong> &bull; Pong: Impossible</span>
+    <a href="../arcade.html" style="color: #00f0ff; text-decoration: none; font-weight: bold; background: #151528; padding: 5px 12px; border-radius: 4px; border: 1px solid #00f0ff;">← Volver al Portafolio</a>
+  </div>
+
+  <!-- CRT Visual Overlay Effects -->
+  <div class="crt-overlay"></div>
+  <div class="vignette"></div>
+
+  <!-- Main Container -->
+  <div id="app-container">
+
+    <!-- 1. MAIN MENU SCREEN -->
+    <section id="menu-screen" class="screen-panel">
+      <div class="high-score-badge">MÁXIMA PUNTUACIÓN: <span id="high-score-val">0</span></div>
+      
+      <div class="menu-content">
+        <h1 class="main-title">PONG<br><span class="neon-pink">IMPOSSIBLE</span></h1>
+        <p class="subtitle" id="menu-subtitle">"EL BOT HARÁ TRAMPA."</p>
+
+        <div class="menu-buttons">
+          <button id="btn-play" class="btn-primary">JUGAR</button>
+          <button id="btn-howtoplay" class="btn-secondary">CÓMO JUGAR</button>
+          <button id="btn-cheatdb" class="btn-secondary">BASE DE TRAMPAS (<span id="cheat-count-val">0/30</span>)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. HOW TO PLAY SCREEN -->
+    <section id="how-to-play-screen" class="screen-panel hidden">
+      <div class="card-panel">
+        <h2 class="section-title">CÓMO JUGAR</h2>
+        
+        <div class="guide-grid">
+          <div class="guide-item">
+            <span class="guide-label">MOVER RAQUETA</span>
+            <div class="controls-badges">
+              <span class="key-badge">W / S</span>
+              <span class="key-badge">⬆ / ⬇</span>
+            </div>
+          </div>
+
+          <div class="guide-item">
+            <span class="guide-label">CONTROLES</span>
+            <div class="controls-badges">
+              <span class="key-badge">ESC: PAUSA</span>
+              <span class="key-badge">R: REINICIAR</span>
+            </div>
+          </div>
+
+          <div class="guide-item">
+            <span class="guide-label">OBJETIVO</span>
+            <p class="guide-desc">Anota 5 puntos contra el bot para ganar la partida.</p>
+          </div>
+
+          <div class="guide-item warning">
+            <span class="guide-label">⚠️ ADVERTENCIA</span>
+            <p class="guide-desc">El bot tiene permitido hacer trampa. Se teletransportará, lanzará bombas, invertirá tus controles y romperá las leyes de la física.</p>
+          </div>
+        </div>
+
+        <button id="btn-back-howtoplay" class="btn-primary" style="margin-top: 20px;">[ VOLVER ]</button>
+      </div>
+    </section>
+
+    <!-- 3. CHEAT DATABASE SCREEN -->
+    <section id="cheat-database-screen" class="screen-panel hidden">
+      <div class="db-header">
+        <h2 class="section-title">BASE DE TRAMPAS</h2>
+        <span class="db-progress">DESCUBIERTAS: <span id="db-discovered-count">0</span> / 30</span>
+      </div>
+
+      <div class="db-grid" id="db-grid">
+        <!-- Generado dinámicamente en JavaScript -->
+      </div>
+
+      <button id="btn-back-cheatdb" class="btn-primary" style="margin-top: 15px;">[ VOLVER ]</button>
+    </section>
+
+    <!-- 4. PARTIDA / GAMEPLAY CONTAINER -->
+    <section id="game-screen" class="screen-panel hidden">
+      
+      <!-- HUD Header -->
+      <header id="hud">
+        <div class="hud-title">PONG: IMPOSSIBLE</div>
+
+        <div class="scoreboard">
+          <div class="score-box" id="player-score-box">
+            <span class="score-label" id="player-label-text">JUGADOR</span>
+            <span class="score-value" id="player-score">0</span>
+          </div>
+          <div class="score-vs">VS</div>
+          <div class="score-box" id="bot-score-box">
+            <span class="score-label">BOT</span>
+            <span class="score-value" id="bot-score">0</span>
+          </div>
+        </div>
+
+        <div class="hud-controls">
+          <button id="btn-sound" class="icon-btn" title="Alternar Sonido">🔊 SONIDO: ON</button>
+          <button id="btn-pause-trigger" class="icon-btn" title="Pausar Juego">⏸️ ESC</button>
+        </div>
+      </header>
+
+      <!-- Canvas Area -->
+      <div id="canvas-wrapper">
+        <canvas id="gameCanvas" width="960" height="540"></canvas>
+        
+        <!-- Cheat Banner Notification -->
+        <div id="cheat-banner">
+          <div class="cheat-banner-sub">⚠️ ¡EL BOT ESTÁ HACIENDO TRAMPA! ⚠️</div>
+          <div class="cheat-banner-title" id="cheat-banner-name">TELETRANSPORTE</div>
+        </div>
+        
+        <!-- Discovery Toast Notification -->
+        <div id="cheat-toast">¡NUEVA TRAMPA DESCUBIERTA!</div>
+
+        <!-- 5. PAUSE MODAL -->
+        <div id="pause-modal" class="overlay hidden">
+          <div class="card-panel">
+            <h1 class="main-title">PAUSA</h1>
+            <div class="menu-buttons" style="margin-top: 20px;">
+              <button id="btn-resume" class="btn-primary">REANUDAR</button>
+              <button id="btn-restart-game" class="btn-secondary">REINICIAR</button>
+              <button id="btn-menu-from-pause" class="btn-secondary">MENÚ PRINCIPAL</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. GAME OVER / VICTORIA MODAL -->
+        <div id="game-over-screen" class="overlay hidden">
+          <div class="card-panel" id="game-over-card">
+            <h1 class="main-title" id="game-over-title">HAS GANADO</h1>
+            <p class="subtitle" id="game-over-subtitle">ERROR: Esto no debía suceder.</p>
+
+            <div class="quote-box" id="game-over-quote">
+              "NO HICE TRAMPA."
+            </div>
+
+            <div class="menu-buttons" style="margin-top: 15px;">
+              <button id="btn-play-again" class="btn-primary">JUGAR DE NUEVO</button>
+              <button id="btn-menu-from-over" class="btn-secondary">MENÚ PRINCIPAL</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- Game Engine Script -->
+  <script src="../storage.js"></script>
+  <script src="game.js"></script>
+  <script>
+    if (window.self === window.top) {
+      const bar = document.getElementById("standalone-return-bar");
+      if (bar) bar.style.display = "flex";
+    }
+  </script>
+</body>
+</html>

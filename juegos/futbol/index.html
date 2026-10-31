@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Juega Fútbol 2D Atari en PetPixel Arcade. 10 personajes con habilidades especiales, físicas continuas, modo 1P vs IA y 2P local.">
+    <meta name="author" content="Juan Sebastian Peñaranda Acosta">
+    <title>PetPixel Arcade | Fútbol 2D Atari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="author-name"><a href="../../index.html" class="brand-link">PetPixel</a></h1>
+            <p class="author-tagline">Indie Game Studio | "Creamos mundos. Diseñamos aventuras."</p>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="../../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="../../sobre.html" class="nav-link">Sobre PetPixel</a></li>
+                <li><a href="../../areas.html" class="nav-link">Áreas de Trabajo</a></li>
+                <li><a href="../../proceso.html" class="nav-link">Proceso Creativo</a></li>
+                <li><a href="../../audio.html" class="nav-link">Audio Multimedia</a></li>
+                <li><a href="../../creador.html" class="nav-link">Sobre el Creador</a></li>
+                <li><a href="../../arcade.html" class="nav-link active">Arcade</a></li>
+                <li><a href="../../contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="../../blog.html" class="nav-link">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="layout-container">
+        <main class="main-content">
+
+            <!-- Barra de Navegación del Runner -->
+            <div class="game-runner-header">
+                <div class="game-runner-breadcrumbs">
+                    <a href="../../index.html">Inicio</a> &gt; 
+                    <a href="../../arcade.html">Arcade</a> &gt; 
+                    <strong style="color: var(--text-light);">Fútbol 2D Atari</strong>
+                    <span style="margin: 0 8px; color: var(--border-color);">|</span>
+                    <span style="font-size: 0.88rem; color: var(--text-muted);">
+                        🎮 Jugador: <strong id="runner-player-alias" style="color: #38bdf8;">Jugador 1</strong> 
+                        (<a href="../../arcade.html#perfil-jugador" style="color: var(--color-secondary); font-size: 0.82rem;">Cambiar</a>)
+                    </span>
+                </div>
+
+                <div class="game-runner-actions">
+                    <a href="../../arcade.html" class="btn btn-secondary btn-back-arcade">
+                        ← Volver a Zona Arcade
+                    </a>
+                    <button type="button" id="btn-toggle-fullscreen" class="btn btn-primary btn-back-arcade" title="Alternar Pantalla Completa">
+                        ⛶ Pantalla Completa
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor del Gabinete / Iframe Aislado -->
+            <section class="game-frame-container" id="game-frame-box">
+                <iframe 
+                    id="game-iframe-futbol" 
+                    src="../../futbol%202d%20atari/futbol.html" 
+                    class="game-iframe" 
+                    title="Juego Fútbol 2D Atari"
+                    allow="autoplay; fullscreen"
+                    tabindex="0">
+                </iframe>
+            </section>
+
+            <!-- Barra de Atajos Rápidos -->
+            <div class="game-floating-bar">
+                <div class="game-controls-tip">
+                    <span>💡 <strong>Controles:</strong></span>
+                    <span>J1 Azul: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> + <kbd>Shift Izq</kbd> (Turbo) + <kbd>E</kbd> (Habilidad)</span>
+                    <span>|</span>
+                    <span>J2 Naranja: <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> + <kbd>Shift Der</kbd> + <kbd>Enter</kbd></span>
+                    <span>|</span>
+                    <span>Pausa: <kbd>Espacio</kbd></span>
+                </div>
+                <button type="button" id="btn-focus-game" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+                    🎯 Activar Controles de Teclado
+                </button>
+            </div>
+
+            <!-- Ficha Técnica y Guía de Habilidades -->
+            <section id="ficha" class="content-section card-section">
+                <h2 class="section-title">Ficha Técnica &amp; 10 Héroes con Habilidades Únicas</h2>
+                <p class="section-intro">
+                    Fútbol 2D Atari fue concebido con un diseño guiado por datos (<em>Data-Driven Design</em>) donde cada personaje altera dinámicamente las variables físicas y el flujo del tiempo.
+                </p>
+
+                <div class="game-specs-grid">
+
+                    <!-- Tabla de Personajes y Habilidades -->
+                    <div class="spec-sheet-card">
+                        <h3 class="spec-sheet-title">⚡ Los 10 Personajes Disponibles</h3>
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Personaje</th>
+                                    <th>Habilidad</th>
+                                    <th>Efecto Mecánico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. Velocista ⚡</strong></td>
+                                    <td>Sandevistan</td>
+                                    <td>Dilatación temporal al 28% (Bullet Time) durante 3.0s con estelas de neón.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Constructor 🧱</strong></td>
+                                    <td>Barrera</td>
+                                    <td>Instancia un muro físico impenetrable de 5.0s que repele el balón y al rival.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Clonador 👥</strong></td>
+                                    <td>Duplicación</td>
+                                    <td>Crea un clon de 4.5s que persigue la pelota y bloquea al contrincante.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Tirador 🎯</strong></td>
+                                    <td>Recarga Perfecta</td>
+                                    <td>Minijuego de timing activo estilo Gears of War que otorga +85% de potencia de tiro.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5. Lanzador 🥊</strong></td>
+                                    <td>Agarre y Lanzamiento</td>
+                                    <td>Atrapa al rival a corta distancia, lo proyecta hacia atrás y le aplica 1.2s de aturdimiento.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>6. Imán 🧲</strong></td>
+                                    <td>Atracción</td>
+                                    <td>Genera un campo magnético vectorial de 3.0s que atrae el balón suavemente.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>7. Fantasma 👻</strong></td>
+                                    <td>Intangibilidad</td>
+                                    <td>Durante 3.2s atraviesa al contrincante sin sufrir colisión cuerpo a cuerpo.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>8. Rebotador 🌀</strong></td>
+                                    <td>Disparo Especial</td>
+                                    <td>Carga el disparo para conferir rebotes de alta restitución (1.15x) en postes y bandas.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>9. Ancla ⚓</strong></td>
+                                    <td>Fortaleza</td>
+                                    <td>Masa e inercia inamovible de 3.5s; desplaza forzosamente al oponente en choques.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>10. Intercambiador 🌌</strong></td>
+                                    <td>Cambio Cuántico</td>
+                                    <td>Intercambia instantáneamente las posiciones de ambos jugadores en el campo.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Especificaciones Técnicas del Motor -->
+                    <div class="spec-sheet-card">
+                        <h3 class="spec-sheet-title">⚙️ Especificaciones del Motor</h3>
+                        <table class="spec-table">
+                            <tbody>
+                                <tr>
+                                    <th>Tecnología</th>
+                                    <td>HTML5 Canvas 2D, JavaScript Vanilla ES6+</td>
+                                </tr>
+                                <tr>
+                                    <th>Tasa de Refresco</th>
+                                    <td>60 FPS fijos vía <code>requestAnimationFrame</code></td>
+                                </tr>
+                                <tr>
+                                    <th>Cálculo de Físicas</th>
+                                    <td>Delta-Time estricto acotado (máx 0.05s)</td>
+                                </tr>
+                                <tr>
+                                    <th>Mecánica de Turbo</th>
+                                    <td>Consumo y regeneración progresiva con Shift</td>
+                                </tr>
+                                <tr>
+                                    <th>Resolución Base</th>
+                                    <td>960 × 560 px escalable con aspect-ratio continuo</td>
+                                </tr>
+                                <tr>
+                                    <th>Sistema de IA</th>
+                                    <td>Máquina de estados táctica predictiva</td>
+                                </tr>
+                                <tr>
+                                    <th>Aislamiento</th>
+                                    <td>Cápsula independiente (Cero colisión con eventos del portafolio)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 1.5rem;">
+                            <a href="../../arcade.html" class="btn btn-secondary" style="width: 100%; text-align: center;">
+                                ← Regresar a la Selección Arcade
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>PetPixel — Indie Game Studio</p>
+        <p>&copy; 2026 Juan Sebastian Peñaranda Acosta. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../storage.js"></script>
+    <script>
+        (function() {
+            const iframe = document.getElementById('game-iframe-futbol');
+            const frameBox = document.getElementById('game-frame-box');
+            const btnFullscreen = document.getElementById('btn-toggle-fullscreen');
+            const btnFocus = document.getElementById('btn-focus-game');
+            const aliasEl = document.getElementById('runner-player-alias');
+
+            if (aliasEl && typeof PetPixelStorage !== 'undefined') {
+                aliasEl.textContent = PetPixelStorage.getPlayerAlias();
+            }
+
+            function focusIframe() {
+                if (iframe && iframe.contentWindow) {
+                    try {
+                        iframe.focus();
+                        iframe.contentWindow.focus();
+                    } catch (e) {}
+                }
+            }
+
+            window.addEventListener('load', () => {
+                setTimeout(focusIframe, 300);
+            });
+
+            if (btnFocus) {
+                btnFocus.addEventListener('click', focusIframe);
+            }
+
+            if (btnFullscreen && frameBox) {
+                btnFullscreen.addEventListener('click', () => {
+                    if (!document.fullscreenElement) {
+                        if (frameBox.requestFullscreen) {
+                            frameBox.requestFullscreen();
+                        } else if (frameBox.webkitRequestFullscreen) {
+                            frameBox.webkitRequestFullscreen();
+                        } else {
+                            frameBox.classList.toggle('is-fullscreen');
+                        }
+                        btnFullscreen.textContent = '✕ Salir de Pantalla Completa';
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                        btnFullscreen.textContent = '⛶ Pantalla Completa';
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement) {
+                        btnFullscreen.textContent = '⛶ Pantalla Completa';
+                        frameBox.classList.remove('is-fullscreen');
+                    }
+                    focusIframe();
+                });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
+

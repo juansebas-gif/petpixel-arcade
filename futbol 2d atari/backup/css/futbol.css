@@ -1,0 +1,431 @@
+/* ==========================================================================
+   FÚTBOL 2D ATARI — ESTILOS RETRO ARCADE
+   Diseño limpio, alto contraste y adaptable a la ventana conservando 960:560
+   ========================================================================== */
+
+:root {
+    --bg-cabinet: #0c0e14;
+    --bg-panel: #161a24;
+    --border-panel: #2b3346;
+    --text-main: #f4f6fb;
+    --text-muted: #9aa5b8;
+    --team-blue: #2998ff;
+    --team-blue-dark: #10559a;
+    --team-orange: #ff7b24;
+    --team-orange-dark: #a84200;
+    --accent-gold: #ffd13b;
+    --turf-dark: #175c2c;
+    --font-mono: "Consolas", "Courier New", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-cabinet);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    user-select: none;
+}
+
+.arcade-cabinet {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px 16px;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR (HUD Y MARCADOR)
+   ========================================================================== */
+.hud-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: var(--bg-panel);
+    border: 2px solid var(--border-panel);
+    border-radius: 6px;
+    padding: 8px 16px;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge-atari {
+    background-color: var(--team-orange);
+    color: #000;
+    font-weight: 900;
+    font-size: 0.75rem;
+    padding: 3px 7px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+}
+
+.brand h1 {
+    font-size: 1.15rem;
+    letter-spacing: 1.5px;
+    color: var(--text-main);
+}
+
+.scoreboard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #080a0f;
+    border: 2px solid #353e54;
+    border-radius: 6px;
+    padding: 4px 18px;
+}
+
+.team-score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.team-blue .team-name,
+.team-blue .score-digits {
+    color: var(--team-blue);
+}
+
+.team-orange .team-name,
+.team-orange .score-digits {
+    color: var(--team-orange);
+}
+
+.score-digits {
+    font-size: 1.8rem;
+    font-weight: 900;
+    min-width: 28px;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+.match-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.mode-tag {
+    font-size: 0.68rem;
+    color: var(--accent-gold);
+    background: rgba(255, 209, 59, 0.12);
+    border: 1px solid rgba(255, 209, 59, 0.4);
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.8px;
+}
+
+.vs-divider {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.hud-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   BOTONES ESTILO ARCADE
+   ========================================================================== */
+.btn-arcade {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.8px;
+    color: var(--text-main);
+    background-color: #263044;
+    border: 2px solid #48587a;
+    border-bottom-width: 4px;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: transform 0.08s ease, background-color 0.12s ease;
+}
+
+.btn-arcade:hover {
+    background-color: #32405a;
+}
+
+.btn-arcade:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+}
+
+.btn-primary {
+    background-color: var(--team-blue-dark);
+    border-color: var(--team-blue);
+}
+
+.btn-primary:hover {
+    background-color: #166ac0;
+}
+
+.btn-orange {
+    background-color: var(--team-orange-dark);
+    border-color: var(--team-orange);
+}
+
+.btn-orange:hover {
+    background-color: #c85000;
+}
+
+.btn-warning {
+    background-color: #5d4510;
+    border-color: var(--accent-gold);
+}
+
+.btn-warning:hover {
+    background-color: #795a16;
+}
+
+.btn-secondary {
+    background-color: #2b2640;
+    border-color: #7c6bb0;
+}
+
+.btn-secondary:hover {
+    background-color: #3a3357;
+}
+
+/* ==========================================================================
+   CONTENEDOR DE LA CANCHA Y ADAPTACIÓN PROPORCIONAL
+   ========================================================================== */
+.stage-wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.canvas-aspect-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #3c4760;
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+    background-color: var(--turf-dark);
+    overflow: hidden;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: crisp-edges;
+}
+
+/* ==========================================================================
+   PANTALLA MODAL DE INICIO / SELECCIÓN DE MODO
+   ========================================================================== */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 13, 20, 0.86);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-card {
+    max-width: 580px;
+    width: 100%;
+    background: var(--bg-panel);
+    border: 3px solid var(--accent-gold);
+    border-radius: 8px;
+    padding: 24px 28px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+}
+
+.retro-subtitle {
+    color: var(--accent-gold);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+}
+
+.retro-title {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 3px 3px 0 #000;
+}
+
+.overlay-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin-bottom: 20px;
+}
+
+.mode-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.btn-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 12px;
+    font-size: 0.95rem;
+}
+
+.btn-large small {
+    font-size: 0.72rem;
+    font-weight: normal;
+    color: #e0e6f0;
+    opacity: 0.9;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+}
+
+.control-box {
+    background: #0d1017;
+    border-radius: 6px;
+    padding: 10px 12px;
+    border-left: 4px solid transparent;
+}
+
+.blue-box {
+    border-left-color: var(--team-blue);
+}
+
+.orange-box {
+    border-left-color: var(--team-orange);
+}
+
+.control-box h3 {
+    font-size: 0.78rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.8px;
+}
+
+.blue-box h3 {
+    color: var(--team-blue);
+}
+
+.orange-box h3 {
+    color: var(--team-orange);
+}
+
+.control-box p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   PIE DE INSTRUCCIONES EN PANTALLA
+   ========================================================================== */
+.instructions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: var(--bg-panel);
+    border: 2px solid var(--border-panel);
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.instruction-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.instruction-item strong {
+    color: var(--text-main);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-blue {
+    background-color: var(--team-blue);
+}
+
+.dot-orange {
+    background-color: var(--team-orange);
+}
+
+kbd {
+    background-color: #252c3d;
+    border: 1px solid #4b5775;
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #fff;
+}
+
+@media (max-width: 720px) {
+    .mode-buttons,
+    .controls-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .brand h1 {
+        font-size: 0.95rem;
+    }
+}
+

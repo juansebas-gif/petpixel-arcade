@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Zona Arcade de PetPixel - Disfruta de nuestros videojuegos web interactivos: Fútbol 2D Atari con 10 personajes y Pong: Impossible con 30 trampas absurdas.">
+    <meta name="author" content="Juan Sebastian Peñaranda Acosta">
+    <title>PetPixel | Zona Arcade & Videojuegos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="author-name"><a href="index.html" class="brand-link">PetPixel</a></h1>
+            <p class="author-tagline">Indie Game Studio | "Creamos mundos. Diseñamos aventuras."</p>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="sobre.html" class="nav-link">Sobre PetPixel</a></li>
+                <li><a href="areas.html" class="nav-link">Áreas de Trabajo</a></li>
+                <li><a href="proceso.html" class="nav-link">Proceso Creativo</a></li>
+                <li><a href="audio.html" class="nav-link">Audio Multimedia</a></li>
+                <li><a href="creador.html" class="nav-link">Sobre el Creador</a></li>
+                <li><a href="arcade.html" class="nav-link active" aria-current="page">Arcade</a></li>
+                <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="layout-container">
+        <main class="main-content">
+
+            <!-- 1. Perfil del Jugador e Identidad Local -->
+            <section id="perfil-jugador" class="player-profile-card">
+                <div class="profile-identity">
+                    <div class="profile-avatar-badge" id="profile-avatar">🎮</div>
+                    <div class="profile-info">
+                        <h3>Perfil: <span id="display-player-alias" style="color: var(--color-secondary);">Jugador 1</span></h3>
+                        <p>Tus récords, victorias e historial de partidos se asocian a este nombre.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <form id="form-player-alias" class="profile-alias-form" onsubmit="return false;">
+                        <input type="text" id="input-player-alias" class="profile-alias-input" placeholder="Tu alias de jugador" maxlength="20" aria-label="Alias del jugador">
+                        <button type="submit" id="btn-save-alias" class="btn btn-primary" style="padding: 0.6rem 1.1rem; font-size: 0.9rem;">
+                            Guardar Alias
+                        </button>
+                    </form>
+                    <span class="storage-status-pill" title="Datos guardados en LocalStorage de tu navegador">
+                        <span class="dot-live"></span> LocalStorage Activo
+                    </span>
+                </div>
+            </section>
+
+            <!-- 2. Catálogo de Videojuegos Arcade -->
+            <section id="arcade" class="content-section card-section">
+                <div class="arcade-intro-card card-section">
+                    <h2 class="section-title">Zona Arcade &amp; Videojuegos</h2>
+                    <p class="section-intro">
+                        Bienvenido a la cabina interactiva de PetPixel. Aquí presentamos nuestras experiencias jugables desarrolladas con estándares web modernos (HTML5 Canvas, Vanilla JavaScript ES6+, Web Audio API y físicas 2D en tiempo real). Cada título representa una exploración profunda de mecánicas, diseño lúdico y balance interactivo.
+                    </p>
+                </div>
+
+                <div class="arcade-grid">
+
+                    <!-- TARJETA 1: FÚTBOL 2D ATARI -->
+                    <article class="arcade-game-card card-futbol">
+                        <div class="arcade-preview-wrap">
+                            <img src="assets/imagenes/preview-futbol.svg" alt="Vista previa del juego Fútbol 2D Atari" class="arcade-preview-img" loading="lazy">
+                            <div class="arcade-preview-overlay">
+                                <span class="arcade-tag tag-cyan">1P / 2P</span>
+                                <span class="arcade-tag tag-gold">10 Héroes</span>
+                            </div>
+                        </div>
+
+                        <div class="arcade-card-content">
+                            <div class="arcade-tags">
+                                <span class="arcade-tag tag-cyan">HTML5 Canvas</span>
+                                <span class="arcade-tag">Físicas 2D</span>
+                                <span class="arcade-tag">IA Táctica</span>
+                            </div>
+
+                            <h3 class="arcade-title">Fútbol 2D Atari</h3>
+                            
+                            <p class="arcade-desc">
+                                Reinvención retro del deporte rey con estética Atari. Compite en modalidad individual contra la IA o en duelo local de 2 jugadores en el mismo teclado. Domina el impulso turbo y desata 10 habilidades únicas como el Sandevistan con dilatación temporal, clonación, barreras físicas y campos magnéticos.
+                            </p>
+
+                            <ul class="arcade-feature-list">
+                                <li>10 personajes con habilidades especiales y tiempos de recarga calculados con Delta-Time.</li>
+                                <li>Fricción de pasto real, rebotes elásticos en postes y porteros inteligentes.</li>
+                                <li>Modos 1P vs IA o 2P Local con soporte total de teclado y pausa fluida.</li>
+                            </ul>
+
+                            <div class="arcade-card-actions">
+                                <a href="juegos/futbol.html" class="btn btn-primary">▶ Jugar Fútbol 2D</a>
+                                <a href="juegos/futbol.html#ficha" class="btn btn-secondary">Ver Ficha</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- TARJETA 2: PONG IMPOSSIBLE -->
+                    <article class="arcade-game-card card-pong">
+                        <div class="arcade-preview-wrap">
+                            <img src="assets/imagenes/preview-pong.svg" alt="Vista previa del juego Pong Impossible" class="arcade-preview-img" loading="lazy">
+                            <div class="arcade-preview-overlay">
+                                <span class="arcade-tag tag-pink">Trampas x30</span>
+                                <span class="arcade-tag tag-gold">Neón CRT</span>
+                            </div>
+                        </div>
+
+                        <div class="arcade-card-content">
+                            <div class="arcade-tags">
+                                <span class="arcade-tag tag-pink">Cyberpunk Arcade</span>
+                                <span class="arcade-tag">Web Audio API</span>
+                                <span class="arcade-tag">30 Coleccionables</span>
+                            </div>
+
+                            <h3 class="arcade-title">Pong: Impossible</h3>
+                            
+                            <p class="arcade-desc">
+                                "¿El bot hará trampa?" ¡Garantizado! Un vertiginoso homenaje arcade en el que la inteligencia artificial rompe descaradamente las leyes del juego. Intenta anotar 5 puntos mientras el rival activa teletransportes, bombas de rebote, distorsión gravitacional e inversión de controles.
+                            </p>
+
+                            <ul class="arcade-feature-list">
+                                <li>Álbum interactivo con 30 trampas absurdas clasificadas por rareza.</li>
+                                <li>Efectos visuales CRT con scanlines, destellos neón y viñeta arcade inmersiva.</li>
+                                <li>Síntesis de sonido procedural en tiempo real mediante Web Audio API nativo.</li>
+                            </ul>
+
+                            <div class="arcade-card-actions">
+                                <a href="juegos/pong.html" class="btn btn-accent">▶ Jugar Pong</a>
+                                <a href="juegos/pong.html#ficha" class="btn btn-secondary">Ver Ficha</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- 3. SECCIÓN DE ESTADÍSTICAS Y RÉCORDS (LOCALSTORAGE) -->
+            <section id="estadisticas" class="content-section card-section">
+                <h2 class="section-title">Estadísticas &amp; Récords Arcade</h2>
+                <p class="section-intro">
+                    Métricas consolidadas de rendimiento persistidas automáticamente en tu navegador mediante LocalStorage en formato JSON.
+                </p>
+
+                <div class="stats-summary-grid">
+
+                    <!-- Métrica 1: Fútbol 2D -->
+                    <div class="stat-metric-card card-metric-futbol">
+                        <div class="stat-metric-header">
+                            <span class="stat-metric-label">Fútbol 2D Atari</span>
+                            <span class="stat-metric-icon">⚽</span>
+                        </div>
+                        <div class="stat-metric-val" id="stat-futbol-matches">0</div>
+                        <div class="stat-metric-meta" id="stat-futbol-wld">
+                            0V / 0D / 0E
+                        </div>
+                        <div class="stat-metric-meta" id="stat-futbol-winrate" style="margin-top: 4px; color: #38bdf8; font-weight: 600;">
+                            Efectividad: 0%
+                        </div>
+                    </div>
+
+                    <!-- Métrica 2: Mejor Resultado Fútbol -->
+                    <div class="stat-metric-card card-metric-record">
+                        <div class="stat-metric-header">
+                            <span class="stat-metric-label">Mejor Victoria Fútbol</span>
+                            <span class="stat-metric-icon">🏆</span>
+                        </div>
+                        <div class="stat-metric-val" id="stat-futbol-best-score" style="color: #facc15;">—</div>
+                        <div class="stat-metric-meta" id="stat-futbol-best-meta">
+                            Sin victorias registradas aún
+                        </div>
+                    </div>
+
+                    <!-- Métrica 3: Pong Impossible Récord -->
+                    <div class="stat-metric-card card-metric-pong">
+                        <div class="stat-metric-header">
+                            <span class="stat-metric-label">Récord Pong</span>
+                            <span class="stat-metric-icon">🏓</span>
+                        </div>
+                        <div class="stat-metric-val" id="stat-pong-record" style="color: #fb7185;">0 pts</div>
+                        <div class="stat-metric-meta" id="stat-pong-balance">
+                            0 Partidas (0V / 0D)
+                        </div>
+                        <div class="stat-metric-meta" id="stat-pong-last-date" style="margin-top: 4px;">
+                            Última partida: Nunca
+                        </div>
+                    </div>
+
+                    <!-- Métrica 4: Trampas Pong Descubiertas -->
+                    <div class="stat-metric-card card-metric-cheats">
+                        <div class="stat-metric-header">
+                            <span class="stat-metric-label">Colección Trampas</span>
+                            <span class="stat-metric-icon">🃏</span>
+                        </div>
+                        <div class="stat-metric-val" id="stat-pong-cheats" style="color: var(--color-primary);">0 / 30</div>
+                        <div class="stat-metric-meta" id="stat-pong-cheats-meta">
+                            Base de datos desbloqueada
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 4. HISTORIAL DE PARTIDOS DE FÚTBOL 2D -->
+            <section id="historial-partidos" class="content-section card-section">
+                <div class="history-header-actions">
+                    <div>
+                        <h2 class="section-title" style="margin-bottom: 0;">Historial de Partidos</h2>
+                        <p class="section-intro" style="margin-bottom: 0; margin-top: 0.4rem;">
+                            Registro pormenorizado de los últimos 50 encuentros finalizados de Fútbol 2D.
+                        </p>
+                    </div>
+
+                    <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+                        <select id="select-history-filter" class="history-filter-select" aria-label="Filtrar por modo de juego">
+                            <option value="all">Todos los Modos</option>
+                            <option value="1P vs IA">1P vs IA</option>
+                            <option value="2P Local">2P Local</option>
+                        </select>
+                        <button type="button" id="btn-clear-history" class="btn btn-secondary" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" title="Limpiar historial de partidos">
+                            🗑️ Limpiar Historial
+                        </button>
+                    </div>
+                </div>
+
+                <div class="history-table-container">
+                    <table class="arcade-table" id="table-history-futbol">
+                        <thead>
+                            <tr>
+                                <th>Fecha &amp; Hora</th>
+                                <th>Modo</th>
+                                <th>Jugador 1 (Azul)</th>
+                                <th>Marcador</th>
+                                <th>Rival (Naranja)</th>
+                                <th>Resultado</th>
+                                <th>Duración</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-tbody">
+                            <!-- Inyectado dinámicamente -->
+                        </tbody>
+                    </table>
+
+                    <div id="history-empty-message" class="history-empty-state" style="display: none;">
+                        <div class="history-empty-icon">🎮</div>
+                        <p><strong>Aún no hay partidos registrados en este navegador.</strong></p>
+                        <p style="font-size: 0.88rem; margin-top: 0.3rem;">¡Juega un partido en <a href="juegos/futbol.html" style="color: #38bdf8;">Fútbol 2D Atari</a> hasta anotar 3 goles o pulsa «FINALIZAR» para guardar tu primer resultado!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filosofía y Arquitectura Técnica -->
+            <aside class="sidebar-aside card-section">
+                <h3 class="subsection-title">Laboratorio de Game Design en PetPixel</h3>
+                <blockquote class="quote-box">
+                    <p>"Nuestros juegos son prototipos 100% nativos para la web: sin dependencias pesadas, ejecutándose a 60 cuadros por segundo y diseñados para priorizar la diversión inmediata y la solidez mecánica."</p>
+                </blockquote>
+                <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem;">
+                    Ambos proyectos funcionan de forma aislada e independiente, garantizando que el ciclo de actualización de físicas, eventos de teclado y motores de audio no interfieran con la navegación del portafolio.
+                </p>
+            </aside>
+
+        </main>
+    </div>
+
+    <!-- Toast flotante de confirmación -->
+    <div id="stats-toast" class="stats-toast" role="status" aria-live="polite">
+        <span>✓</span>
+        <span id="stats-toast-text">Alias actualizado</span>
+    </div>
+
+    <footer class="site-footer">
+        <p>PetPixel — Indie Game Studio</p>
+        <p>&copy; 2026 Juan Sebastian Peñaranda Acosta. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Biblioteca de Almacenamiento Central y Controlador de UI -->
+    <script src="storage.js"></script>
+    <script>
+        (function() {
+            'use strict';
+
+            // Elementos del Perfil
+            const displayAlias = document.getElementById('display-player-alias');
+            const inputAlias = document.getElementById('input-player-alias');
+            const formAlias = document.getElementById('form-player-alias');
+
+            // Métricas
+            const statFutbolMatches = document.getElementById('stat-futbol-matches');
+            const statFutbolWld = document.getElementById('stat-futbol-wld');
+            const statFutbolWinrate = document.getElementById('stat-futbol-winrate');
+            const statFutbolBestScore = document.getElementById('stat-futbol-best-score');
+            const statFutbolBestMeta = document.getElementById('stat-futbol-best-meta');
+
+            const statPongRecord = document.getElementById('stat-pong-record');
+            const statPongBalance = document.getElementById('stat-pong-balance');
+            const statPongLastDate = document.getElementById('stat-pong-last-date');
+            const statPongCheats = document.getElementById('stat-pong-cheats');
+
+            // Historial
+            const historyTbody = document.getElementById('history-tbody');
+            const historyEmptyMsg = document.getElementById('history-empty-message');
+            const filterSelect = document.getElementById('select-history-filter');
+            const btnClearHistory = document.getElementById('btn-clear-history');
+            const toast = document.getElementById('stats-toast');
+            const toastText = document.getElementById('stats-toast-text');
+
+            function showToast(msg) {
+                if (!toast || !toastText) return;
+                toastText.textContent = msg;
+                toast.classList.add('active');
+                setTimeout(() => toast.classList.remove('active'), 2800);
+            }
+
+            function renderUI() {
+                if (typeof PetPixelStorage === 'undefined') return;
+                const data = PetPixelStorage.getData();
+
+                // 1. Perfil del Jugador
+                const currentAlias = PetPixelStorage.getPlayerAlias();
+                if (displayAlias) displayAlias.textContent = currentAlias;
+                if (inputAlias && document.activeElement !== inputAlias) {
+                    inputAlias.value = currentAlias;
+                }
+
+                // 2. Métricas de Fútbol
+                const fb = data.futbol || {};
+                const matches = fb.matchesPlayed || 0;
+                const wins = fb.wins || 0;
+                const losses = fb.losses || 0;
+                const draws = fb.draws || 0;
+
+                if (statFutbolMatches) statFutbolMatches.textContent = matches;
+                if (statFutbolWld) statFutbolWld.textContent = `${wins}V / ${losses}D / ${draws}E`;
+
+                const winrate = matches > 0 ? Math.round((wins / matches) * 100) : 0;
+                if (statFutbolWinrate) statFutbolWinrate.textContent = `Efectividad: ${winrate}%`;
+
+                if (statFutbolBestScore && statFutbolBestMeta) {
+                    if (fb.bestResult && fb.bestResult.diff > -999 && fb.bestResult.date) {
+                        statFutbolBestScore.textContent = `${fb.bestResult.playerScore} - ${fb.bestResult.rivalScore}`;
+                        statFutbolBestMeta.textContent = `vs ${fb.bestResult.rivalChar || 'Rival'} (${fb.bestResult.date.split(',')[0]})`;
+                    } else {
+                        statFutbolBestScore.textContent = '—';
+                        statFutbolBestMeta.textContent = 'Sin victorias registradas aún';
+                    }
+                }
+
+                // 3. Métricas de Pong
+                const pg = data.pong || {};
+                if (statPongRecord) statPongRecord.textContent = `${pg.highScore || 0} pts`;
+                if (statPongBalance) statPongBalance.textContent = `${pg.matchesPlayed || 0} Partidas (${pg.wins || 0}V / ${pg.losses || 0}D)`;
+                if (statPongLastDate) statPongLastDate.textContent = `Última: ${pg.lastMatchDate ? pg.lastMatchDate.split(',')[0] : 'Nunca'}`;
+                if (statPongCheats) statPongCheats.textContent = `${pg.cheatsDiscovered || 0} / 30`;
+
+                // 4. Tabla de Historial
+                renderHistoryTable(fb.history || []);
+            }
+
+            function renderHistoryTable(historyList) {
+                if (!historyTbody || !historyEmptyMsg) return;
+                historyTbody.innerHTML = '';
+
+                const filter = filterSelect ? filterSelect.value : 'all';
+                const filtered = historyList.filter(item => {
+                    if (filter === 'all') return true;
+                    return item.mode === filter;
+                });
+
+                if (filtered.length === 0) {
+                    historyEmptyMsg.style.display = 'block';
+                    return;
+                }
+
+                historyEmptyMsg.style.display = 'none';
+
+                filtered.forEach(item => {
+                    const tr = document.createElement('tr');
+
+                    // Badge de resultado
+                    let badgeClass = 'badge-draw';
+                    let badgeText = 'EMPATE';
+                    if (item.winner === 'blue') {
+                        badgeClass = 'badge-win';
+                        badgeText = 'VICTORIA';
+                    } else if (item.winner === 'orange') {
+                        badgeClass = 'badge-loss';
+                        badgeText = 'DERROTA';
+                    }
+
+                    tr.innerHTML = `
+                        <td style="color: var(--text-muted); font-size: 0.88rem;">${item.date}</td>
+                        <td><span class="arcade-tag" style="font-size: 0.72rem;">${item.mode}</span></td>
+                        <td><strong>${item.p1Character}</strong> <small style="color: #38bdf8;">(${item.playerAlias || 'J1'})</small></td>
+                        <td class="table-score-highlight"><span style="color: #38bdf8;">${item.scoreBlue}</span> - <span style="color: #fb923c;">${item.scoreOrange}</span></td>
+                        <td><strong>${item.p2Character}</strong></td>
+                        <td><span class="badge-result ${badgeClass}">${badgeText}</span></td>
+                        <td style="color: var(--text-muted); font-family: monospace;">${item.durationFormatted || '—'}</td>
+                    `;
+                    historyTbody.appendChild(tr);
+                });
+            }
+
+            // Guardar alias al enviar formulario
+            if (formAlias) {
+                formAlias.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (!inputAlias) return;
+                    const val = inputAlias.value.trim();
+                    if (val.length === 0) return;
+
+                    const success = PetPixelStorage.setPlayerAlias(val);
+                    if (success) {
+                        renderUI();
+                        showToast(`¡Alias guardado como "${val}"!`);
+                    }
+                });
+            }
+
+            // Filtrado del historial
+            if (filterSelect) {
+                filterSelect.addEventListener('change', () => {
+                    const data = PetPixelStorage.getData();
+                    renderHistoryTable((data.futbol && data.futbol.history) || []);
+                });
+            }
+
+            // Limpiar historial
+            if (btnClearHistory) {
+                btnClearHistory.addEventListener('click', function() {
+                    if (confirm('¿Estás seguro de que deseas limpiar el historial de partidos de Fútbol? Esta acción conservará tu alias y récord de Pong.')) {
+                        PetPixelStorage.clearFutbolHistory();
+                        renderUI();
+                        showToast('Historial de partidos limpiado.');
+                    }
+                });
+            }
+
+            // Escuchar eventos de actualización reactiva
+            window.addEventListener('petpixel:storage-updated', function() {
+                renderUI();
+            });
+
+            // Inicializar renderizado
+            window.addEventListener('DOMContentLoaded', renderUI);
+            renderUI();
+        })();
+    </script>
+
+            <!-- Filosofía y Arquitectura Técnica -->
+            <aside class="sidebar-aside card-section">
+                <h3 class="subsection-title">Laboratorio de Game Design en PetPixel</h3>
+                <blockquote class="quote-box">
+                    <p>"Nuestros juegos son prototipos 100% nativos para la web: sin dependencias pesadas, ejecutándose a 60 cuadros por segundo y diseñados para priorizar la diversión inmediata y la solidez mecánica."</p>
+                </blockquote>
+                <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.95rem;">
+                    Ambos proyectos funcionan de forma aislada e independiente, garantizando que el ciclo de actualización de físicas, eventos de teclado y motores de audio no interfieran con la navegación del portafolio.
+                </p>
+            </aside>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>PetPixel — Indie Game Studio</p>
+        <p>&copy; 2026 Juan Sebastian Peñaranda Acosta. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+
+</html>
+

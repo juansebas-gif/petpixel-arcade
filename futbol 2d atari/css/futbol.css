@@ -1,0 +1,744 @@
+/* ==========================================================================
+   FÚTBOL 2D ATARI — SISTEMA DE 10 PERSONAJES CON HABILIDADES ESPECIALES
+   Estilos Retro Arcade Atari, HUD enriquecido y Selector de Personajes
+   ========================================================================== */
+
+:root {
+    --bg-cabinet: #0a0c12;
+    --bg-panel: #131722;
+    --bg-card: #1a202e;
+    --border-panel: #262f43;
+    --text-main: #f0f4fc;
+    --text-muted: #8d98ab;
+    --team-blue: #2998ff;
+    --team-blue-glow: rgba(41, 152, 255, 0.4);
+    --team-orange: #ff7824;
+    --team-orange-glow: rgba(255, 120, 36, 0.4);
+    --accent-gold: #ffd13b;
+    --accent-green: #2ecc71;
+    --accent-red: #ff4757;
+    --turf-dark: #145227;
+    --font-mono: "Consolas", "Courier New", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-cabinet);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    user-select: none;
+}
+
+.arcade-cabinet {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding: 8px 14px;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   HUD SUPERIOR Y ESTADO DE PERSONAJES
+   ========================================================================== */
+.hud-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-panel);
+    border: 2px solid var(--border-panel);
+    border-radius: 8px;
+    padding: 6px 14px;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.player-hud {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    max-width: 320px;
+}
+
+.orange-hud {
+    justify-content: flex-end;
+}
+
+.character-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0e121a;
+    border: 2px solid var(--team-blue);
+    box-shadow: 0 0 10px var(--team-blue-glow);
+    flex-shrink: 0;
+}
+
+.orange-badge {
+    border-color: var(--team-orange);
+    box-shadow: 0 0 10px var(--team-orange-glow);
+}
+
+.char-icon {
+    font-size: 1.45rem;
+}
+
+.hud-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.hud-details-right {
+    align-items: flex-end;
+}
+
+.hud-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.hud-player-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+}
+
+.hud-char-name {
+    font-size: 0.88rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
+
+.hud-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+}
+
+.meter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.meter-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 78px;
+}
+
+.meter-track {
+    flex: 1;
+    height: 7px;
+    background: #080a0f;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #273042;
+}
+
+.meter-fill {
+    height: 100%;
+    transition: width 0.08s linear;
+}
+
+.turbo-fill {
+    background: linear-gradient(90deg, #ffcc00, #ff8800);
+}
+
+.skill-fill {
+    background: linear-gradient(90deg, #00d2ff, #2998ff);
+}
+
+.orange-fill {
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+}
+
+.meter-status {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    min-width: 38px;
+    text-align: right;
+}
+
+/* MARCADOR CENTRAL */
+.scoreboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.scoreboard {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #090c13;
+    border: 2px solid #303a4e;
+    border-radius: 6px;
+    padding: 3px 18px;
+}
+
+.score-digits {
+    font-size: 1.8rem;
+    font-weight: 900;
+    min-width: 26px;
+    text-align: center;
+}
+
+.score-blue {
+    color: var(--team-blue);
+    text-shadow: 0 0 8px var(--team-blue-glow);
+}
+
+.score-orange {
+    color: var(--team-orange);
+    text-shadow: 0 0 8px var(--team-orange-glow);
+}
+
+.match-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+}
+
+.mode-tag {
+    font-size: 0.65rem;
+    color: var(--accent-gold);
+    background: rgba(255, 209, 59, 0.12);
+    border: 1px solid rgba(255, 209, 59, 0.4);
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.8px;
+}
+
+.vs-text {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.hud-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ==========================================================================
+   BOTONES ESTILO ARCADE
+   ========================================================================== */
+.btn-arcade {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.76rem;
+    letter-spacing: 0.6px;
+    color: var(--text-main);
+    background-color: #242c3d;
+    border: 2px solid #43516f;
+    border-bottom-width: 4px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: transform 0.08s ease, background-color 0.12s ease;
+}
+
+.btn-arcade:hover {
+    background-color: #2f3a50;
+}
+
+.btn-arcade:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+}
+
+.btn-sm {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+}
+
+.btn-primary {
+    background-color: #10559a;
+    border-color: #2998ff;
+}
+
+.btn-primary:hover {
+    background-color: #186dc0;
+}
+
+.btn-orange {
+    background-color: #9a4408;
+    border-color: #ff7824;
+}
+
+.btn-orange:hover {
+    background-color: #bd550d;
+}
+
+.btn-warning {
+    background-color: #5d4510;
+    border-color: var(--accent-gold);
+}
+
+.btn-warning:hover {
+    background-color: #7a5c18;
+}
+
+.btn-secondary {
+    background-color: #2b2542;
+    border-color: #7b65b6;
+}
+
+.btn-secondary:hover {
+    background-color: #3b325c;
+}
+
+.btn-success {
+    background-color: #166034;
+    border-color: #2ecc71;
+}
+
+.btn-success:hover {
+    background-color: #1d7b42;
+}
+
+.btn-bold {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    letter-spacing: 1.5px;
+}
+
+/* ==========================================================================
+   CANVAS Y CONTENEDOR PROPORCIONAL
+   ========================================================================== */
+.stage-wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.canvas-aspect-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #3c4760;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    background-color: var(--turf-dark);
+    overflow: hidden;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: crisp-edges;
+}
+
+/* ==========================================================================
+   PANTALLAS MODALES / OVERLAYS
+   ========================================================================== */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 11, 18, 0.88);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 10;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-card {
+    background: var(--bg-panel);
+    border: 3px solid var(--accent-gold);
+    border-radius: 8px;
+    padding: 20px 24px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+    max-height: 96%;
+    overflow-y: auto;
+}
+
+.mode-card {
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+}
+
+.retro-subtitle {
+    color: var(--accent-gold);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.retro-title {
+    font-size: 1.85rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.retro-title-sm {
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+}
+
+.overlay-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 18px;
+}
+
+.mode-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.btn-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 10px;
+    font-size: 0.9rem;
+}
+
+.btn-large small {
+    font-size: 0.7rem;
+    font-weight: normal;
+    color: #dbe4f0;
+    opacity: 0.85;
+}
+
+.controls-summary-box {
+    background: #0a0d14;
+    border: 1px solid #273042;
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   PANTALLA DE SELECCIÓN DE PERSONAJES (GRILLA DE LOS 10 HÉROES)
+   ========================================================================== */
+.char-select-card {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.char-select-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #273146;
+    padding-bottom: 8px;
+    gap: 10px;
+}
+
+.char-turn-badge {
+    background: #10559a;
+    border: 2px solid var(--team-blue);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.turn-orange {
+    background: #9a4408;
+    border-color: var(--team-orange);
+}
+
+.char-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-height: 310px;
+    overflow-y: auto;
+    padding: 2px;
+}
+
+.char-card {
+    background: var(--bg-card);
+    border: 2px solid #2d374d;
+    border-radius: 6px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.1s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+}
+
+.char-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 12px rgba(255, 209, 59, 0.2);
+}
+
+.char-card.selected-blue {
+    border-color: var(--team-blue);
+    background: rgba(41, 152, 255, 0.12);
+    box-shadow: 0 0 10px var(--team-blue-glow);
+}
+
+.char-card.selected-orange {
+    border-color: var(--team-orange);
+    background: rgba(255, 120, 36, 0.12);
+    box-shadow: 0 0 10px var(--team-orange-glow);
+}
+
+.char-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.char-card-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.char-card-skill {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-bottom: 4px;
+}
+
+.char-card-desc {
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    line-height: 1.25;
+    flex: 1;
+    margin-bottom: 4px;
+}
+
+.char-card-meta {
+    font-size: 0.56rem;
+    background: #0c0f16;
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: #a0aec0;
+    width: 100%;
+}
+
+.char-card-badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 0.55rem;
+    font-weight: 900;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+.badge-blue {
+    background: var(--team-blue);
+    color: #000;
+}
+
+.badge-orange {
+    background: var(--team-orange);
+    color: #000;
+}
+
+/* RESUMEN DE ELECCIÓN Y BOTÓN INICIAR */
+.char-selection-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 2px solid #273146;
+    padding-top: 8px;
+}
+
+.selected-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.summary-slot {
+    background: #0c0f16;
+    border-radius: 5px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.slot-blue {
+    border-left: 4px solid var(--team-blue);
+}
+
+.slot-orange {
+    border-left: 4px solid var(--team-orange);
+}
+
+.slot-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.summary-slot strong {
+    font-size: 0.88rem;
+    color: #ffffff;
+}
+
+.summary-slot small {
+    font-size: 0.66rem;
+    color: var(--accent-gold);
+}
+
+.summary-vs {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: var(--text-muted);
+}
+
+.footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ==========================================================================
+   PIE CON INSTRUCCIONES
+   ========================================================================== */
+.instructions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    background-color: var(--bg-panel);
+    border: 2px solid var(--border-panel);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.instruction-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.instruction-item strong {
+    color: var(--text-main);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-blue { background-color: var(--team-blue); }
+.dot-orange { background-color: var(--team-orange); }
+
+kbd {
+    background-color: #242c3e;
+    border: 1px solid #485675;
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 850px) {
+    .char-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-height: 250px;
+    }
+    .hud-bar {
+        padding: 4px 8px;
+    }
+    .player-hud {
+        max-width: 220px;
+    }
+    .hud-char-name {
+        font-size: 0.76rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .char-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .mode-buttons {
+        grid-template-columns: 1fr;
+    }
+    .selected-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

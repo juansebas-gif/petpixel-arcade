@@ -1,0 +1,155 @@
+===============================================================================
+GUÍA EDUCATIVA: ESTRUCTURA Y FUNCIONAMIENTO DE HTML5 Y CSS EN PETPIXEL
+===============================================================================
+Estudio: PetPixel (Indie Game Studio)
+Autor: Juan Sebastian Peñaranda Acosta
+===============================================================================
+
+-------------------------------------------------------------------------------
+PARTE 1: EL ESQUELETO WEB - index.html
+-------------------------------------------------------------------------------
+
+El lenguaje HTML5 (HyperText Markup Language) se encarga de definir la ESTRUCTURA 
+y el CONTENIDO de la página web (textos, títulos, secciones, listas y formularios).
+
+1. LA CABECERA INVISIBLE (<head>)
+---------------------------------
+Todo lo que está dentro de <head> no se ve directamente en la pantalla de la página,
+pero es indispensable para navegadores y buscadores (Google).
+
+* <!DOCTYPE html>
+  Le avisa al navegador que este archivo utiliza la versión moderna HTML5.
+
+* <html lang="es">
+  Indica que el idioma principal del contenido es español.
+
+* <meta charset="UTF-8">
+  Permite mostrar caracteres especiales en español como tildes (á, é, í, ó, ú), 
+  la letra ñ y signos (¿, ¡).
+
+* <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  IMPRESCINDIBLE PARA CELULARES. Hace que la página se adapte automáticamente al 
+  ancho de pantalla de cualquier dispositivo.
+
+* <meta name="description" content="...">
+  Resumen de la página que aparece debajo del título cuando buscas en Google.
+
+* <title>
+  El nombre que aparece en la pestaña superior del navegador web.
+
+* <link rel="stylesheet" href="styles.css">
+  Conecta la estructura HTML con el archivo de estilos visuales CSS.
+
+
+2. CONTENEDORES SEMÁNTICOS DEL CUERPO (<body>)
+----------------------------------------------
+El HTML Semántico utiliza etiquetas con un significado claro:
+
+* <body>: Contiene todo lo que el usuario ve e interactúa en pantalla.
+
+* <header>: Encabezado superior del sitio. Contiene el nombre principal del 
+  estudio y el menú de navegación.
+
+* <nav>: Bloque destinado exclusivamente a los enlaces de navegación.
+
+* <main>: El contenedor del contenido principal único de la página.
+
+* <section>: Representa una sección temática del documento (ejemplos: #inicio, 
+  #sobre-petpixel, #proyectos, #areas, #proceso, #creador, #contacto). 
+  Cada sección lleva su propio título <h2>.
+
+* <article>: Contenido independiente y autocontenido (como cada tarjeta de 
+  proyecto, área de trabajo o paso del proceso).
+
+* <aside>: Contenido complementario o lateral (frase de Filosofía Indie).
+
+* <footer>: Pie de página con avisos de copyright y firma del estudio.
+
+
+3. JERARQUÍA DE TÍTULOS (<h1> -> <h3>)
+---------------------------------------
+Sigue una estructura estricta de orden jerárquico:
+
+* <h1>: Título principal único de la página (PetPixel). Solo existe uno por página.
+* <h2>: Títulos de las secciones principales (Inicio, Sobre PetPixel, etc.).
+* <h3>: Subtítulos dentro de secciones o tarjetas (Mochi's Journey, etc.).
+
+
+4. ELEMENTOS DE TEXTO Y ENLACES
+--------------------------------
+* <p>: Párrafo de texto.
+* <strong>: Texto de importancia (se visualiza en negrita).
+* <ul> y <li>: Lista no ordenada (<ul>) y cada elemento dentro de la lista (<li>).
+* <a href="#proyectos">: Enlace. El símbolo # conecta directamente con el id de 
+  la sección (id="proyectos").
+* <blockquote>: Cita textual o frase destacada del estudio.
+
+
+5. FORMULARIO DE CONTACTO SEMÁNTICO (<form>)
+---------------------------------------------
+* <form>: Agrupa los controles para recolectar información del usuario.
+* <label for="nombre">: Etiqueta de texto vinculada al id del campo mediante for.
+* <input type="text">: Campo de texto de una sola línea.
+* <input type="email">: Campo para correo electrónico con validación de formato.
+* <textarea>: Campo multilínea para mensajes largos.
+* required: Atributo que impide enviar el formulario si el campo está vacío.
+* <button type="submit">: Botón que envía el formulario.
+
+
+-------------------------------------------------------------------------------
+PARTE 2: EL DISEÑO VISUAL - styles.css
+-------------------------------------------------------------------------------
+
+El lenguaje CSS (Cascading Style Sheets) se encarga de los colores, fuentes, 
+espaciados, disposiciones (grids/flexbox) y adaptabilidad (responsive design).
+
+1. VARIABLES GLOBALES Y RESET (* y :root)
+------------------------------------------
+* * { box-sizing: border-box; margin: 0; padding: 0; }
+  - Selector universal (*): Aplica la regla a TODOS los elementos.
+  - box-sizing: border-box: Evita que el padding y bordes deformen los anchos.
+  - margin: 0; padding: 0;: Elimina espacios predeterminados del navegador.
+
+* :root { --bg-main: #0b0f19; --color-primary: #8b5cf6; }
+  Define variables globales de color. Si cambias el color de la variable en :root, 
+  cambiará automáticamente en toda la página web.
+
+
+2. DISPOSICIÓN DE PANTALLA: FLEXBOX VS. CSS GRID
+-------------------------------------------------
+* FLEXBOX (display: flex):
+  Organiza elementos en una sola dirección (fila o columna).
+  Se usa en el menú de navegación (<nav>), cabecera y formulario.
+
+* CSS GRID (display: grid):
+  Organiza elementos en filas y columnas bidimensionales.
+  Se usa en las tarjetas de proyectos, áreas de trabajo y valores.
+  Ejemplo: grid-template-columns: repeat(3, 1fr); crea 3 columnas iguales.
+
+
+3. DISEÑO ADAPTATIVO (MEDIA QUERIES)
+------------------------------------
+Permiten cambiar los estilos según el tamaño de la pantalla:
+
+* @media (min-width: 768px):
+  Aplica estilos especiales para tabletas (ejemplo: el menú pasa de vertical 
+  a horizontal y la cuadrícula muestra 2 columnas).
+
+* @media (min-width: 1024px):
+  Aplica estilos para computadores de escritorio (cuadrícula de 3 columnas).
+
+
+4. ACCESIBILIDAD Y ESTADOS (:focus-visible y :hover)
+----------------------------------------------------
+* :hover: Cambia el aspecto al pasar el ratón por encima.
+* :focus-visible: Muestra un borde claro al navegar con la tecla Tab del teclado.
+
+
+===============================================================================
+RESUMEN DE BUENAS PRÁCTICAS
+===============================================================================
+1. Separación limpia entre estructura (HTML) y diseño (CSS).
+2. Cero estilos en línea (sin atributos style="..." ni etiquetas <style>).
+3. Navegación por anclas interna funcional (#inicio, #proyectos, etc.).
+4. Código semántico, limpio, accesible y fácil de modificar para el taller.
+===============================================================================

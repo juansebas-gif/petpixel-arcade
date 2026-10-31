@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Juega Pong: Impossible en PetPixel Arcade. Un Pong retro con una IA tramposa descarada, 30 trampas coleccionables y Web Audio API.">
+    <meta name="author" content="Juan Sebastian Peñaranda Acosta">
+    <title>PetPixel Arcade | Pong: Impossible</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="author-name"><a href="../../index.html" class="brand-link">PetPixel</a></h1>
+            <p class="author-tagline">Indie Game Studio | "Creamos mundos. Diseñamos aventuras."</p>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul class="nav-list">
+                <li><a href="../../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="../../sobre.html" class="nav-link">Sobre PetPixel</a></li>
+                <li><a href="../../areas.html" class="nav-link">Áreas de Trabajo</a></li>
+                <li><a href="../../proceso.html" class="nav-link">Proceso Creativo</a></li>
+                <li><a href="../../audio.html" class="nav-link">Audio Multimedia</a></li>
+                <li><a href="../../creador.html" class="nav-link">Sobre el Creador</a></li>
+                <li><a href="../../arcade.html" class="nav-link active">Arcade</a></li>
+                <li><a href="../../contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="../../blog.html" class="nav-link">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="layout-container">
+        <main class="main-content">
+
+            <!-- Barra de Navegación del Runner -->
+            <div class="game-runner-header">
+                <div class="game-runner-breadcrumbs">
+                    <a href="../../index.html">Inicio</a> &gt; 
+                    <a href="../../arcade.html">Arcade</a> &gt; 
+                    <strong style="color: var(--color-accent);">Pong: Impossible</strong>
+                    <span style="margin: 0 8px; color: var(--border-color);">|</span>
+                    <span style="font-size: 0.88rem; color: var(--text-muted);">
+                        🎮 Jugador: <strong id="runner-player-alias" style="color: #fb7185;">Jugador 1</strong> 
+                        (<a href="../../arcade.html#perfil-jugador" style="color: var(--color-secondary); font-size: 0.82rem;">Cambiar</a>)
+                    </span>
+                </div>
+
+                <div class="game-runner-actions">
+                    <a href="../../arcade.html" class="btn btn-secondary btn-back-arcade">
+                        ← Volver a Zona Arcade
+                    </a>
+                    <button type="button" id="btn-toggle-fullscreen" class="btn btn-accent btn-back-arcade" title="Alternar Pantalla Completa">
+                        ⛶ Pantalla Completa
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor del Gabinete / Iframe Aislado -->
+            <section class="game-frame-container" id="game-frame-box">
+                <iframe 
+                    id="game-iframe-pong" 
+                    src="../../pinpon/index.html" 
+                    class="game-iframe" 
+                    title="Juego Pong Impossible"
+                    allow="autoplay; fullscreen"
+                    tabindex="0">
+                </iframe>
+            </section>
+
+            <!-- Barra de Atajos Rápidos -->
+            <div class="game-floating-bar">
+                <div class="game-controls-tip">
+                    <span>💡 <strong>Controles:</strong></span>
+                    <span>Mover Raqueta: <kbd>W</kbd> / <kbd>S</kbd> o <kbd>↑</kbd> / <kbd>↓</kbd></span>
+                    <span>|</span>
+                    <span>Pausa: <kbd>ESC</kbd></span>
+                    <span>|</span>
+                    <span>Reiniciar: <kbd>R</kbd></span>
+                    <span>|</span>
+                    <span>Meta: Anota 5 puntos al Bot Tramposo</span>
+                </div>
+                <button type="button" id="btn-focus-game" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+                    🎯 Activar Controles de Teclado
+                </button>
+            </div>
+
+            <!-- Ficha Técnica y Guía de Trampas -->
+            <section id="ficha" class="content-section card-section">
+                <h2 class="section-title">Ficha Técnica &amp; Base de Datos de Trampas</h2>
+                <p class="section-intro">
+                    Pong: Impossible invierte la convención del juego justo: la inteligencia artificial tiene licencia para romper cualquier regla cuando va perdiendo o para burlarse del jugador.
+                </p>
+
+                <div class="game-specs-grid">
+
+                    <!-- Clasificación de Trampas del Bot -->
+                    <div class="spec-sheet-card">
+                        <h3 class="spec-sheet-title">🃏 30 Trampas Coleccionables por Rareza</h3>
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Rareza</th>
+                                    <th>Frecuencia</th>
+                                    <th>Ejemplos de Trampas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong style="color: #94a3b8;">Común</strong></td>
+                                    <td>Frecuente</td>
+                                    <td>Teletransporte instantáneo, Raqueta Gigante, Empujón Sónico, Bola Fantasma.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #38bdf8;">Poco Común</strong></td>
+                                    <td>Media</td>
+                                    <td>Inversión de Controles, Gravedad Invertida, Espejismo de Raquetas, Pelota Curva.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #a78bfa;">Rara</strong></td>
+                                    <td>Baja</td>
+                                    <td>Lanzamiento de Bombas, Red Láser, Mini-Agujero Negro, Escudo Electromagnético.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fb7185;">Extrema</strong></td>
+                                    <td>Crítica</td>
+                                    <td>Multibola Caótica x5, Congelamiento Temporal, Clonación de IA, Robo de Punto.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--text-muted);">
+                            * Cada vez que el bot activa una trampa nueva durante la partida, queda registrada permanentemente en la <strong>Base de Trampas</strong> del menú inicial del juego.
+                        </p>
+                    </div>
+
+                    <!-- Especificaciones Técnicas del Motor -->
+                    <div class="spec-sheet-card">
+                        <h3 class="spec-sheet-title">⚙️ Especificaciones del Motor</h3>
+                        <table class="spec-table">
+                            <tbody>
+                                <tr>
+                                    <th>Tecnología</th>
+                                    <td>HTML5 Canvas 2D, Vanilla JavaScript (IIFE encapsulado)</td>
+                                </tr>
+                                <tr>
+                                    <th>Sistema de Audio</th>
+                                    <td>Web Audio API procedural (Cero archivos .mp3/.wav externos)</td>
+                                </tr>
+                                <tr>
+                                    <th>Bucle de Cuadros</th>
+                                    <td>60 FPS con Delta-Time acotado (1ms - 33ms)</td>
+                                </tr>
+                                <tr>
+                                    <th>Efectos Visuales</th>
+                                    <td>Filtro CRT Scanlines, viñeta perimetral y resplandores neón</td>
+                                </tr>
+                                <tr>
+                                    <th>Resolución Base</th>
+                                    <td>960 × 540 px (16:9) con ajuste responsivo dinámico</td>
+                                </tr>
+                                <tr>
+                                    <th>Persistencia</th>
+                                    <td>LocalStorage integrado para récord y colección de trampas</td>
+                                </tr>
+                                <tr>
+                                    <th>Aislamiento</th>
+                                    <td>Iframe hermético que previene interferencias de teclado o estilos</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 1.5rem;">
+                            <a href="../../arcade.html" class="btn btn-secondary" style="width: 100%; text-align: center;">
+                                ← Regresar a la Selección Arcade
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>PetPixel — Indie Game Studio</p>
+        <p>&copy; 2026 Juan Sebastian Peñaranda Acosta. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../storage.js"></script>
+    <script>
+        (function() {
+            const iframe = document.getElementById('game-iframe-pong');
+            const frameBox = document.getElementById('game-frame-box');
+            const btnFullscreen = document.getElementById('btn-toggle-fullscreen');
+            const btnFocus = document.getElementById('btn-focus-game');
+            const aliasEl = document.getElementById('runner-player-alias');
+
+            if (aliasEl && typeof PetPixelStorage !== 'undefined') {
+                aliasEl.textContent = PetPixelStorage.getPlayerAlias();
+            }
+
+            function focusIframe() {
+                if (iframe && iframe.contentWindow) {
+                    try {
+                        iframe.focus();
+                        iframe.contentWindow.focus();
+                    } catch (e) {}
+                }
+            }
+
+            window.addEventListener('load', () => {
+                setTimeout(focusIframe, 300);
+            });
+
+            if (btnFocus) {
+                btnFocus.addEventListener('click', focusIframe);
+            }
+
+            if (btnFullscreen && frameBox) {
+                btnFullscreen.addEventListener('click', () => {
+                    if (!document.fullscreenElement) {
+                        if (frameBox.requestFullscreen) {
+                            frameBox.requestFullscreen();
+                        } else if (frameBox.webkitRequestFullscreen) {
+                            frameBox.webkitRequestFullscreen();
+                        } else {
+                            frameBox.classList.toggle('is-fullscreen');
+                        }
+                        btnFullscreen.textContent = '✕ Salir de Pantalla Completa';
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                        btnFullscreen.textContent = '⛶ Pantalla Completa';
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement) {
+                        btnFullscreen.textContent = '⛶ Pantalla Completa';
+                        frameBox.classList.remove('is-fullscreen');
+                    }
+                    focusIframe();
+                });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
+
