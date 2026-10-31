@@ -1,0 +1,53 @@
+# =============================================================================
+# PETPIXEL INDIE GAME STUDIO — REGLAS DE EXCLUSIÓN GIT (.gitignore)
+# =============================================================================
+
+# 1. Archivos de Sistema Operativo y Caché Local
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+
+# 2. Configuración de Editores y Entornos de Desarrollo
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+*~
+
+# 3. Artefactos de Node y Vercel
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vercel/
+
+# 4. Archivos Temporales y Logs
+*.log
+*.tmp
+*.temp
+0
+
+# 5. Archivos Fotográficos RAW no usados en producción
+*.CR3
+*.cr2
+*.nef
+*.arw
+*.dng
+
+# 6. Carpetas de respaldo histórico local
+Parcial1_JuanSebastian_Penaranda/
+videos/
